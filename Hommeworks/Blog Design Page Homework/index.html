@@ -1,0 +1,206 @@
+
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Denis Andrei - Rules for Autocomplete</title>
+
+    <style>
+body {
+    color: #220;
+    font-family: 'Times New Roman', serif;
+    font-size: 21px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+div.container {
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    max-width: 48rem;
+}
+
+div.header {
+    border-bottom: 2px solid #544;
+    margin-bottom: 30px;
+    padding: 12px 0px;
+}
+
+div.logo {
+    float: left;
+}
+
+div.logo a {
+    color: #544;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+div.header .navigation {
+    text-align: right;
+}
+
+div.header .navigation a {
+    color: #544;
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 12px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+div.content {
+    margin-bottom: 80px;
+    line-height: 1.6em;
+}
+
+div.footer {
+    border-top: solid 2px black;
+    color: #555;
+    font-size: 12px;
+    margin-top: 30px;
+    padding: 12px 0px 12px 0px;
+    text-align: right;
+}
+
+h1 {
+    font-size: 25px;
+}
+
+h2 {
+    font-size: 23px;
+}
+
+h3 {
+    font-size: 21px;
+}
+
+h4 {
+    font-size: 19px;
+}
+
+div.info {
+    color: #555;
+    font-size: 17px;
+    font-style: italic;
+}
+
+span.kw {
+    font-weight: bold;
+    color: #004;
+}
+
+span.st {
+    color: #040;
+}
+
+span.ot {
+    color: #400;
+}
+
+span.dt {
+    color: #640;
+}
+
+div.sourceCode, div#content>pre {
+    border: 1px solid #DEDEDE;
+    padding: 0.5em 1em;
+    background-color: #FAFAFA;
+    overflow: auto;
+    font-size: 0.75em;
+    font-family: mono;
+}
+
+div.sourceCode>pre {
+    padding: 0;
+    margin: 0;
+}
+
+p>code, li>code {
+    background-color: #FAFAFA;
+    font-size: 0.8em;
+    font-family: mono;
+    color: #994444;
+}
+
+.column {
+    max-width: 100%;
+}
+
+.post {
+    max-width: 100%;
+}
+
+@media (max-width: 600px) {
+    body {
+        font-size: 19px;
+    }
+
+    div.container {
+        padding: 0.5rem 1rem 1rem 1rem;
+    }
+
+    div.header {
+        padding-top: 0;
+    }
+
+    div.header div.logo {
+        float: none;
+        padding: 0.4rem 0;
+    }
+
+    div.header div.navigation {
+        text-align: left;
+        display: block;
+    }
+
+    div.header div.navigation a {
+        margin-left: 0;
+        margin-right: 1rem;
+        padding: 0.2rem 0;
+        font-size: 0.8rem;
+    }
+
+    .content .title {
+        font-size: 1.5rem;
+    }
+}
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div id="header" class="header column">
+        <div id="logo" class="logo column">
+          <a href="../">Deni's Blog</a>
+        </div>
+        <div id="navigation" class="navigation column">
+          <a href="../">Home</a>
+          <a href="../about.html">About</a>
+          <a href="../archive.html">Archive</a>
+        </div>
+      </div>
+
+      <div id="content" class="content column">
+        <div class="post">
+          <h1 class="title">Rules for Autocomplete</h1>
+
+          <div class="info">
+    Posted on Oct 19, 2022
+    
+</div>
+
+<p>Autocompleting text with known values seems like an easy problem to solve, but so so so many UIs get it wrong. I see this frequently enough that, rather than complain about them individually, I though I’d just write down the set of rules they often break.</p>
+<p>There may be cases where some of these rules aren’t the best thing to do, but there should be a good reason for breaking one of these rules (for example, some of these rules don’t apply if a field must be filled with a value from a fixed set, like the list of US states). Following these rules should always result in at very least a sane experience:</p>
+<ul>
+<li>Exact matches always come first. If the user types in an option exactly, other options must always go below the one matching what they typed.</li>
+<li>Besides exact matches, prefix matches come first. If I type “Fr” I want “Fresno” not “San Francisco.”</li>
+<li>After prefix matches, it can fall back to substring matches. Starting with substring matches would almost always be the wrong thing to do since users start typing words at the beginning not somewhere in the middle.</li>
+<li>If there are no substring matches, it can optionally fall back to subsequence matching. This is only useful in some cases.</li>
+<li>If there are no subsequence/substring matches, it can optionally fall back to approximate matches. This is rarely necessary to provide.</li>
+<li>Matches should be sorted alphabetically.</li>
+<li>When one option is the prefix of another, put the <em>shortest one first</em>.</li>
+<li>The matching should probably be case insensitive unless there are two options that differ only by case. In that case (pun intended), prefer the one that more closely matches the user’s input.</li>
+<li>The action to make use of the selection (e.g. to search the term) must be a different key than the action to accept the first suggestion <em>unless</em> you have to do something first to start using autocomplete suggestions (e.g.&nbsp;hit the down arrow). The user should never have to take extra steps to <em>not</em> use autocomplete.</li>
+</body></html>

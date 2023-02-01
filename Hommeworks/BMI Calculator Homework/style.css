@@ -1,0 +1,25 @@
+/* font */
+@import url(https://fonts.googleapis.com/css?family=Knewave);
+
+$knewave: "Knewave";
+
+body {
+ background:url('https://www.dropbox.com/s/7zxkiuyghz7z3ss/black-background.jpg?raw=1');
+}
+
+.jumbotron{
+  margin-top: 5%;
+}
+
+h2{
+  font-family: $knewave;
+}
+
+h3{
+  display: inline;
+  margin-right: 20px;
+}
+
+.result{
+  color: blue;
+}
